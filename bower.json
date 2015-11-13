@@ -22,5 +22,10 @@
     "lib",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "angular-route": "~1.4.7",
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.7"
+  }
 }

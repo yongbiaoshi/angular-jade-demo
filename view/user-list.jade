@@ -1,1 +1,2 @@
-extends _layout
+ul(ng-if='users && users.length')
+  li(ng-repeat='user in users track by $index') {{$index}}-{{user.name}}-{{$index}}-{{count}}

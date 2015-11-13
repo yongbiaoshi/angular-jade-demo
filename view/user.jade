@@ -1,0 +1,25 @@
+extends _layout
+append scripts
+  script(type='text/javascript', src='/javascript/ctrls/user-ctrl.js')
+block content
+  .container(ng-app='User')
+    div(ng-controller='UserController as userCtrl').user-form-wrapper
+      div: user-list
+      - var list = [1,2,3,4];
+        each i in list
+          span= i
+      form(name='userForm', novalidate, ng-submit="saveUser()", autocomplete='off')
+        .form-group
+          lable(for='name') 用户名
+          input(name='name', type='text', ng-model='user.name' minlength='6', maxlength='18', required).form-control
+          p {{userForm.name.$invalid}} - msg:{{userForm.name.$error}}
+        .form-group
+          lable(for='email') 邮箱
+          input(name='email', type='email', ng-model='user.email' maxlength='50' required).form-control
+          p {{userForm.email.$invalid}} - msg:{{userForm.email.$error}}
+        .form-group
+          lable(for='password') 密码
+          input(name='password', ng-model='user.password', type='password', minlength='6', maxlength='18' required).form-control
+          p {{userForm.password.$invalid}} - msg:{{userForm.password.$error}}
+        button(type='submit', ng-disabled='userForm.$invalid').btn.btn-default 提交
+        button(type='button', ng-click='saveUser()').btn.btn-default 测试
