@@ -1,0 +1,26 @@
+{
+  "name": "angular-jade-demo",
+  "authors": [
+    "yongbiaoshi <shyb0904@163.com>"
+  ],
+  "description": "angular jade demo",
+  "main": "index.jade",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "angular",
+    "jade",
+    "demo"
+  ],
+  "license": "MIT",
+  "homepage": "index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib",
+    "test",
+    "tests"
+  ]
+}

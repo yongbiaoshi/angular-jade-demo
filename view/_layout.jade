@@ -1,0 +1,52 @@
+doctype html
+html(lang='zh-CN', ng-app)
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    block title
+      title 首页
+
+    block links
+      link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap-theme.css')
+      link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
+    block style
+
+    block scripts
+      script(type='text/javascript', src='/lib/jquery/dist/jquery.js')
+      script(type='text/javascript', src='/lib/bootstrap/dist/js/bootstrap.js')
+      script(type='text/javascript', src='/lib/angular/angular.min.js')
+
+  body
+    block navbar
+      nav.navbar.navbar-default
+        //- .container-fluid
+        .container
+          //- .navbar-header.navbar-brand
+          .navbar-header
+            a(href="http://xitong.tltian.com/", target="_blank").navbar-brand.hidden-sm AngularJs Demo
+            //- 小屏幕时，导航栏右边的展开按钮（响应式）
+            button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-navbar' aria-controls='bs-navbar' aria-expanded='false')
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+          #bs-navbar.navbar-collapse.collapse(style="height: auto;", aria-expanded='false')
+            ul.nav.navbar-nav
+              li: a(href="/index") 网站首页
+              li: a(href="/ylmf") 雨林木风
+              li: a(href="/shendu") 深度技术
+              li: a(href="/luobo") 萝卜家园
+              li: a(href="/fanqie") 蕃茄花园
+              li: a(href="/more") 更多系统
+            ul.nav.navbar-nav.navbar-right
+              li: a(href="#")
+                span.glyphicon.glyphicon-star
+                | &nbsp;消息
+              li: a(href="#")
+                span.glyphicon.glyphicon-user
+                | &nbsp;个人资料
+    block content
+     .container There is nothing to show!
+
+    block footer
