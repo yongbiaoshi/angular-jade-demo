@@ -1,5 +1,5 @@
 (function(){
-  var app = angular.module("User", []);
+  var app = angular.module("User", ['ngMessages']);
 
   app.controller('UserController', ['$scope', '$window', '$log', function($scope, win, $log){
     $scope.user = {};
@@ -12,12 +12,7 @@
       $scope.resetForm(form);
     };
     $scope.resetForm = function(form){
-      for(var key in form){
-        if(key && key.indexOf('$') !== 0){
-          form[key].$dirty = false;
-          form[key].$pristine = true;
-        }
-      }
+      form.$setPristine();
     };
   }]);
 
@@ -33,6 +28,13 @@
     };
   });
 
+  app.directive('userFormAdd', function(){
+    return {
+      restrict: 'E',
+      templateUrl: '/view/user-form-add.html'
+    };
+  });
+
   app.directive('emailOrMobile', function(){
     return {
       restrict: 'A',
@@ -45,10 +47,33 @@
           ngModel.$setValidity('emailOrMobile', validity);
           return validity ? value : undefined;
         };
-        ngModel.$formatters.push(validator);
+        // ngModel.$formatters.push(validator);
         ngModel.$parsers.push(validator);
       }
     };
   });
+
+
+  app.directive('equalsTo', ['$timeout', function($timeout){
+    return {
+      restrict: 'A',
+      require: 'ngModel',
+      link: function(scope, element, attrs, ngModel){
+        if(!attrs.equalsTo) return undefined;
+        var aArray = attrs.equalsTo.split('.');
+        var otherNgModel = element.inheritedData("$formController")[attrs.equalsTo];
+        ngModel.$parsers.push(function(value){
+          ngModel.$setValidity("equalsTo", value === otherNgModel.$viewValue);
+          return value === otherNgModel.$viewValue;
+        });
+
+        otherNgModel.$parsers.push(function(value){
+          var v = value === ngModel.$viewValue;
+          ngModel.$setValidity('equalsTo', v);
+          return value;
+        });
+      }
+    };
+  }]);
 
 })();

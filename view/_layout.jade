@@ -11,11 +11,21 @@ html(lang='zh-CN')
       link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap-theme.css')
       link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
     block style
-
+      style.
+        .form-control~.glyphicon-ok, .form-control~.glyphicon-remove{
+          display: none;
+        }
+        .ng-dirty.ng-invalid~.glyphicon-remove, .ng-dirty.ng-valid~.glyphicon-ok{
+          display: block
+        }
+        .ng-dirty.ng-invalid~.glyphicon-ok, .ng-dirty.ng-valid~.glyphicon-remove{
+          display: none
+        }
     block scripts
       script(type='text/javascript', src='/lib/jquery/dist/jquery.js')
       script(type='text/javascript', src='/lib/bootstrap/dist/js/bootstrap.js')
       script(type='text/javascript', src='/lib/angular/angular.min.js')
+      script(type='text/javascript', src='/lib/angular-messages/angular-messages.min.js')
 
     //- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
     //- WARNING: Respond.js doesn't work if you view the page via file://

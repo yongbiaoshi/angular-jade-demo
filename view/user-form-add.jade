@@ -1,0 +1,70 @@
+form(name='userForm', novalidate, ng-submit="saveUser(userForm)", autocomplete='off')
+  .form-group.has-feedback(ng-class="{'has-error': userForm.name.$invalid && userForm.name.$dirty, 'has-success': userForm.name.$valid && userForm.name.$dirty}")
+    label(for='name') 用户名
+    input(name='name', type='text', ng-model='user.name' minlength='6', maxlength='18', required).form-control
+    span.glyphicon.form-control-feedback.glyphicon-ok
+    span.glyphicon.form-control-feedback.glyphicon-remove
+    //- p(ng-show='userForm.name.$invalid && userForm.name.$dirty') {{userForm.name.$invalid}} - msg:{{userForm.name.$error}}
+    div.help-block(ng-messages='userForm.name.$error', mg-messages-multi, ng-show='userForm.name.$dirty')
+      p(ng-message='required') 请输入用户名
+      p(ng-message='minlength, maxlength') 用户名必须是6-18位字符
+  .form-group.has-feedback(ng-class="{'has-error': userForm.email.$invalid && userForm.email.$dirty, 'has-success': userForm.email.$valid && userForm.email.$dirty}")
+    label(for='email') 邮箱
+    input.form-control(name='email', type='email', ng-model='user.email' maxlength='50', required)
+    span.glyphicon.form-control-feedback.glyphicon-ok
+    span.glyphicon.form-control-feedback.glyphicon-remove
+    div.help-block(ng-messages='userForm.email.$error', mg-messages-multi, ng-show='userForm.email.$dirty')
+      p(ng-message='required') 请输入邮箱地址
+      p(ng-message='email') Email格式错误
+  .form-group.has-feedback(ng-class="{'has-error': userForm.reserveEmail.$invalid && userForm.reserveEmail.$dirty, 'has-success': userForm.reserveEmail.$valid && userForm.reserveEmail.$dirty}")
+    label(for='reserveEmail') 后备邮箱
+    input.form-control(name='reserveEmail', type='email', ng-model='user.reserveEmail' maxlength='50')
+    span.glyphicon.form-control-feedback.glyphicon-ok
+    span.glyphicon.form-control-feedback.glyphicon-remove
+    div.help-block(ng-messages='userForm.reserveEmail.$error', mg-messages-multi, ng-show='userForm.reserveEmail.$dirty')
+      p(ng-message='email') Email格式错误
+  .form-group.has-feedback(ng-class="{'has-error': userForm.age.$invalid && userForm.age.$dirty, 'has-success': userForm.age.$valid && userForm.age.$dirty}")
+    label(for='age') 年龄
+    input.form-control(name='age', type='number', ng-model='user.age', required, max='100', min='18')
+    span.glyphicon.form-control-feedback.glyphicon-ok
+    span.glyphicon.form-control-feedback.glyphicon-remove
+    div.help-block(ng-messages='userForm.age.$error', mg-messages-multi, ng-show='userForm.age.$dirty')
+      p(ng-message='required') 请输入年龄
+      p(ng-message='min, max') 年龄必须在18-100之间
+  .form-group.has-feedback(ng-class="{'has-error': userForm.password.$invalid && userForm.password.$dirty, 'has-success': userForm.password.$valid && userForm.password.$dirty}")
+    label(for='password') 密码
+    input.form-control(name='password', ng-model='user.password', type='password', minlength='6', maxlength='18', required)
+    span.glyphicon.form-control-feedback.glyphicon-ok
+    span.glyphicon.form-control-feedback.glyphicon-remove
+    div.help-block(ng-messages='userForm.password.$error', mg-messages-multi, ng-show='userForm.password.$dirty')
+      p(ng-message='required') 请输入密码
+      p(ng-message='minlength, maxlength') 密码必须是6-18位
+  .form-group.has-feedback(ng-class="{'has-error': userForm.passwordAgain.$invalid && userForm.passwordAgain.$dirty, 'has-success': userForm.passwordAgain.$valid && userForm.passwordAgain.$dirty}")
+    label(for='passwordAgain') 再次输入密码
+    input.form-control(name='passwordAgain', ng-model='user.passwordAgain', type='password', minlength='6', maxlength='18', required, equals-to='password')
+    span.glyphicon.form-control-feedback.glyphicon-ok
+    span.glyphicon.form-control-feedback.glyphicon-remove
+    div.help-block(ng-messages='userForm.passwordAgain.$error', mg-messages-multi, ng-show='userForm.passwordAgain.$dirty')
+      p(ng-message='required') 请再次输入密码
+      p(ng-message='equalsTo') 再次输入密码不一致
+      p(ng-message='minlength, maxlength') 密码必须是6-18位
+  .form-group.has-feedback(ng-class="{'has-error': userForm.country.$invalid && userForm.country.$dirty, 'has-success': userForm.country.$valid && userForm.country.$dirty}")
+    label(for='country') 国家代码
+    input.form-control(name='country', type='text', ng-model='user.country', ng-pattern='/[A-Z]{1,2}/', minlength='1', maxlength='2', required)
+    span.glyphicon.form-control-feedback.glyphicon-ok
+    span.glyphicon.form-control-feedback.glyphicon-remove
+    div.help-block(ng-messages='userForm.country.$error', mg-messages-multi, ng-show='userForm.country.$dirty')
+      p(ng-message='required') 请输入国家代码
+      p(ng-message='pattern') 国家代码必须是1-2位大写字母，例：CN（中国）
+  .form-group.has-feedback(ng-class="{'has-error': userForm.account.$invalid && userForm.account.$dirty, 'has-success': userForm.account.$valid && userForm.account.$dirty}")
+    label(for='account') 邮箱或者手机号
+    input.form-control(name='account', type='text', ng-model='user.account', email-or-mobile, required)
+    span.glyphicon.form-control-feedback.glyphicon-ok
+    span.glyphicon.form-control-feedback.glyphicon-remove
+    div.help-block(ng-messages='userForm.account.$error', mg-messages-multi, ng-show='userForm.account.$dirty')
+      p(ng-message='required') 请输入账号
+      p(ng-message='emailOrMobile') 账号必须为Email地址或者手机号
+  div
+    button(type='submit', ng-disabled='userForm.$invalid').btn.btn-default 提交
+    |&nbsp;
+    button(type='reset', ng-click="userForm.$setPristine();").btn.btn-default 重置
