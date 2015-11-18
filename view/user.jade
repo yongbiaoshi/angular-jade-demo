@@ -1,6 +1,8 @@
 extends _layout
 append scripts
+  script(type='text/javascript', src='/javascript/tools/form-validate-ext.js')
   script(type='text/javascript', src='/javascript/ctrls/user-ctrl.js')
+
 append style
 
 block content
@@ -11,4 +13,3 @@ block content
         each i in list
           span= i
       user-form-add
-      
