@@ -28,7 +28,7 @@
         var otherNgModel = element.inheritedData("$formController")[attrs.equalsTo];
         ngModel.$parsers.push(function(value){
           ngModel.$setValidity("equalsTo", value === otherNgModel.$viewValue);
-          return value === otherNgModel.$viewValue;
+          return value;
         });
 
         otherNgModel.$parsers.push(function(value){

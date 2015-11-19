@@ -1,2 +1,3 @@
 ul(ng-if='users && users.length')
-  li(ng-repeat='user in users track by $index') {{$index}}-{{user.name}}-{{user.email}}-{{user.password}}
+  li(ng-repeat='user in users track by $index')
+    pre {{user | json}}

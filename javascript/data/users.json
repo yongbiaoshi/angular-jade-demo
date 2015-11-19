@@ -1,0 +1,10 @@
+{
+  "wanglibo": {
+    "password": "123456",
+    "age": 30
+  },
+  "shiyongbiao": {
+    "password": "654321",
+    "age": 27
+  }
+}

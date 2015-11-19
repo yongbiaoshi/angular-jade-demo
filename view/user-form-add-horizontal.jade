@@ -1,0 +1,109 @@
+- labelWidth = ['col-sm-12', 'col-md-3', 'col-lg-3', 'control-label'];
+- controlWidth = ['col-sm-12', 'col-md-5', 'col-lg-5'];
+- helpBlockWidth = ['col-sm-12', 'col-md-4', 'col-lg-4'];
+- var ngClass = function(name){return {'ng-class': "{'has-error': userForm." + name + ".$invalid && userForm." + name + ".$dirty, 'has-success': userForm." + name + ".$valid && userForm." + name + ".$dirty}"};};
+
+form.form-horizontal(name='userForm', novalidate, ng-submit="saveUser(user);resetForm();", autocomplete='off')
+  .form-group.has-feedback&attributes(ngClass('name'))
+    label(class=labelWidth, for='name') 用户名
+    div(class=controlWidth)
+      input.form-control(name='name', type='text', ng-model='user.name' minlength='6', maxlength='18', required)
+      span.glyphicon.form-control-feedback.glyphicon-ok
+      span.glyphicon.form-control-feedback.glyphicon-remove
+    //- p(ng-show='userForm.name.$invalid && userForm.name.$dirty') {{userForm.name.$invalid}} - msg:{{userForm.name.$error}}
+    .help-block(class=helpBlockWidth, ng-messages='userForm.name.$error', ng-messages-multiple, ng-show='userForm.name.$dirty')
+      p(ng-message='required') 请输入用户名
+      p(ng-message='minlength, maxlength') 用户名必须是6-18位字符
+  .form-group.has-feedback&attributes(ngClass('email'))
+    label(class=labelWidth, for='email') 邮箱
+    div(class=controlWidth)
+      input.form-control(name='email', type='email', ng-model='user.email' maxlength='50', required)
+      span.glyphicon.form-control-feedback.glyphicon-ok
+      span.glyphicon.form-control-feedback.glyphicon-remove
+    .help-block(class=helpBlockWidth, ng-messages='userForm.email.$error', ng-messages-multiple, ng-show='userForm.email.$dirty')
+      p(ng-message='required') 请输入邮箱地址
+      p(ng-message='email') Email格式错误
+  .form-group.has-feedback&attributes(ngClass('reserveEmail'))
+    label(class=labelWidth, for='reserveEmail') 后备邮箱
+    div(class=controlWidth)
+      input.form-control(name='reserveEmail', type='email', ng-model='user.reserveEmail' maxlength='50')
+      span.glyphicon.form-control-feedback.glyphicon-ok
+      span.glyphicon.form-control-feedback.glyphicon-remove
+    .help-block(class=helpBlockWidth, ng-messages='userForm.reserveEmail.$error', ng-messages-multiple, ng-show='userForm.reserveEmail.$dirty')
+      p(ng-message='email') Email格式错误
+  .form-group.has-feedback&attributes(ngClass('age'))
+    label(class=labelWidth, for='age') 年龄
+    div(class=controlWidth)
+      input.form-control(name='age', type='number', ng-model='user.age', required, max='100', min='18')
+      span.glyphicon.form-control-feedback.glyphicon-ok
+      span.glyphicon.form-control-feedback.glyphicon-remove
+    .help-block(class=helpBlockWidth, ng-messages='userForm.age.$error', ng-messages-multiple, ng-show='userForm.age.$dirty')
+      p(ng-message='required') 请输入年龄
+      p(ng-message='min, max') 年龄必须在18-100之间
+  .form-group.has-feedback&attributes(ngClass('password'))
+    label(class=labelWidth, for='password') 密码
+    div(class=controlWidth)
+      input.form-control(name='password', ng-model='user.password', type='password', minlength='6', maxlength='18', required)
+      span.glyphicon.form-control-feedback.glyphicon-ok
+      span.glyphicon.form-control-feedback.glyphicon-remove
+    .help-block(class=helpBlockWidth, ng-messages='userForm.password.$error', ng-messages-multiple, ng-show='userForm.password.$dirty')
+      p(ng-message='required') 请输入密码
+      p(ng-message='minlength, maxlength') 密码必须是6-18位
+  .form-group.has-feedback&attributes(ngClass('passwordAgain'))
+    label(class=labelWidth, for='passwordAgain') 再次输入密码
+    div(class=controlWidth)
+      input.form-control(name='passwordAgain', ng-model='user.passwordAgain', type='password', minlength='6', maxlength='18', required, equals-to='password')
+      span.glyphicon.form-control-feedback.glyphicon-ok
+      span.glyphicon.form-control-feedback.glyphicon-remove
+    .help-block(class=helpBlockWidth, ng-messages='userForm.passwordAgain.$error', ng-messages-multiple, ng-show='userForm.passwordAgain.$dirty')
+      p(ng-message='required') 请再次输入密码
+      p(ng-message='equalsTo') 再次输入密码不一致
+      p(ng-message='minlength, maxlength') 密码必须是6-18位
+  .form-group.has-feedback&attributes(ngClass('country'))
+    label(class=labelWidth, for='country') 国家代码
+    div(class=controlWidth)
+      input.form-control(name='country', type='text', ng-model='user.country', ng-pattern='/^[A-Z]{2,3}$/', minlength='2', maxlength='3', required)
+      span.glyphicon.form-control-feedback.glyphicon-ok
+      span.glyphicon.form-control-feedback.glyphicon-remove
+    .help-block(class=helpBlockWidth, ng-messages='userForm.country.$error', ng-messages-multiple, ng-show='userForm.country.$dirty')
+      p(ng-message='required') 请输入国家代码
+      p(ng-message='pattern') 必须是2-3位大写字母
+  .form-group.has-feedback&attributes(ngClass('account'))
+    label(class=labelWidth, for='account') 邮箱或者手机号
+    div(class=controlWidth)
+      input.form-control(name='account', type='text', ng-model='user.account', email-or-mobile, required)
+      span.glyphicon.form-control-feedback.glyphicon-ok
+      span.glyphicon.form-control-feedback.glyphicon-remove
+    .help-block(class=helpBlockWidth, ng-messages='userForm.account.$error', ng-messages-multiple, ng-show='userForm.account.$dirty')
+      p(ng-message='required') 请输入账号
+      p(ng-message='emailOrMobile') 手机号或Email格式错误
+  .form-group
+    label(class=labelWidth) 爱好
+    div(class=controlWidth)
+      .checkbox
+        label
+          input(type='checkbox', name='hobbies', ng-model='hobby.game', ng-change='user.hobbies.game=hobby.game;')
+          |游戏&nbsp;&nbsp;
+        label
+          input(type='checkbox', name='hobbies', ng-model='hobby.tourism', ng-change='user.hobbies.tourism=user.hobby.tourism;')
+          |旅游&nbsp;&nbsp;
+        label
+          input(type='checkbox', name='hobbies', ng-model='hobby.eat', ng-change='user.hobbies.eat=hobby.eat;')
+          |吃喝&nbsp;&nbsp;
+        label
+          input(type='checkbox', name='hobbies', ng-model='hobby.pc', ng-change='user.hobbies.pc=hobby.pc;')
+          |电脑&nbsp;&nbsp;
+        label
+          input(type='checkbox', name='hobbies', ng-model='hobby.read', ng-change='user.hobbies.read=hobby.read;')
+          |阅读&nbsp;&nbsp;
+        label
+          input(type='checkbox', name='hobbies', ng-model='hobby.sport', ng-change='user.hobbies.sport=hobby.sport;')
+          |运动
+  .form-group
+    div(class=labelWidth)
+    div(class=controlWidth)
+      button.btn.btn-default(type='submit', ng-disabled='userForm.$invalid') 提交
+      |&nbsp;
+      button.btn.btn-default(type='reset', ng-click="resetForm();") 重置
+  .form-group
+    pre(ng-show="user") {{user | json}}

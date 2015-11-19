@@ -1,4 +1,6 @@
 extends view/_layout
 block content
-  .container
-    div: a(ng-href='/view/user') 用户列表页面
+  .container(ng-app)
+    ul.list-unstyled
+      li: a(ng-href='/view/user') 用户添加页面
+      li: a(ng-href='/view/user-view') 用户查看页面

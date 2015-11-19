@@ -1,19 +1,20 @@
 (function(){
   var app = angular.module("User", ['ngMessages', 'formValidateExt']);
 
-  app.controller('UserController', ['$scope', '$window', '$log', function($scope, win, $log){
-    $scope.user = {};
+  app.controller('UserController', ['$scope', '$window', '$log', '$http', function($scope, win, $log, $http){
     $scope.users = [];
-    $scope.saveUser = function(form){
-      if($scope.user) {
-        $scope.users.push($scope.user);
-        $scope.user = {};
+    $http.get('/javascript/data/user-list.json').success(function(data){
+      $scope.users = data;
+    });
+    $scope.saveUser = function(user){
+      if(user) {
+        $scope.users.push(user);
       }
-      $scope.resetForm(form);
     };
-    $scope.resetForm = function(form){
-      form.$setPristine();
-    };
+  }]);
+
+  app.controller('UserViewController', ['$scope', function($scope){
+    $scope.queryUser = {};
   }]);
 
   app.directive('userList', function() {
@@ -31,7 +32,30 @@
   app.directive('userFormAdd', function(){
     return {
       restrict: 'E',
-      templateUrl: '/view/user-form-add.html'
+      scope: true,
+      replace: true,
+      templateUrl: '/view/user-form-add.html',
+      controller: ['$scope', function($scope){
+        $scope.resetForm = function(){
+          $scope.userForm.$setPristine();
+          $scope.user = {};
+        };
+      }]
+    };
+  });
+
+  app.directive('userFormAddHorizontal', function(){
+    return {
+      restrict: 'E',
+      scope: true,
+      replace: true,
+      templateUrl: '/view/user-form-add-horizontal.html',
+      controller: ['$scope', function($scope){
+        $scope.resetForm = function(){
+          $scope.userForm.$setPristine();
+          $scope.user = {};
+        };
+      }]
     };
   });
 

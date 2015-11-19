@@ -1,0 +1,31 @@
+form.row(name='queryUserForm', ng-submit="alert('查询');", novalidate, autocomplete='off')
+  .col-md-3.form-horizontal
+    .form-group
+      label.col-md-4.control-label(for='name') 用户名
+      .col-md-8: input.form-control(type="text", placeholder="用户名")
+  .col-md-3.form-horizontal
+    .form-group(ng-class="{'has-error': queryUserForm.email.$invalid}")
+      label.col-md-4.control-label(for='email') Email
+      .col-md-8: input.form-control(name="email", type="email", placeholder="Email", ng-model='queryUser.email')
+  .col-md-3.form-horizontal
+    .form-group(ng-class="{'has-error': queryUserForm.age.$invalid}")
+      label.col-md-4.control-label(for='age') 年龄
+      .col-md-8: input.form-control(type="number", name='age', ng-model='queryUser.age', min='18', max='100', placeholder="年龄")
+  .col-md-3.form-horizontal
+    .form-group
+      label.col-md-4.control-label(for='country') 国家
+      .col-md-8: input.form-control(type="text", placeholder="国家")
+  .col-md-3.form-horizontal
+    .form-group
+      label.col-md-4.control-label(for='name') 部门
+      .col-md-8: input.form-control(type="text", placeholder="部门")
+  .col-md-3.form-horizontal
+    .form-group
+      label.col-md-4.control-label(for='name') 职位
+      .col-md-8: input.form-control(type="text", placeholder="职位")
+  .col-md-3.form-horizontal
+    .form-group
+      .col-md-7.text-right
+        input.btn.btn-primary(type='submit', ng-disabled='queryUserForm.$invalid' value="查询")
+        |&nbsp;&nbsp;
+        input.btn.btn-default(type='reset', value="重置")

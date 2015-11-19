@@ -7,9 +7,14 @@ append style
 
 block content
   .container(ng-app='User')
-    div(ng-controller='UserController as userCtrl').user-form-wrapper
-      div: user-list
+    div(ng-controller='UserController as userCtrl')
       - var list = [1,2,3,4];
-        each i in list
-          span= i
-      user-form-add
+        .row
+          each i in list
+            span= i
+      .row
+        .col-sm-12.col-md-6
+          user-form-add
+        .col-sm-12.col-md-6
+          user-form-add-horizontal
+      div.row: user-list
