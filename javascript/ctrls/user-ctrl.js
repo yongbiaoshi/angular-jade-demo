@@ -13,8 +13,11 @@
     };
   }]);
 
-  app.controller('UserViewController', ['$scope', function($scope){
+  app.controller('UserViewController', ['$scope', '$http', function($scope, $http){
     $scope.queryUser = {};
+    $http.get('/javascript/data/user-list.json').success(function(data){
+      $scope.users = data;
+    });
   }]);
 
   app.directive('userList', function() {
@@ -26,6 +29,14 @@
 
       },
       controllerAs: 'userListCtrl'
+    };
+  });
+
+  app.directive('userFindForm', function(){
+    return {
+      restrict: 'E',
+      replace: true,
+      templateUrl: '/view/user-find-form.html'
     };
   });
 
