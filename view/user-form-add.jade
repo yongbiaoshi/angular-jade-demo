@@ -1,60 +1,42 @@
 - var ngClass = function(name){return {'ng-class': "{'has-error': userForm." + name + ".$invalid && userForm." + name + ".$dirty, 'has-success': userForm." + name + ".$valid && userForm." + name + ".$dirty}"};};
-- var s = '{"name": "test"}';
-- var test = JSON.parse(s);
 mixin formGroup(name, label)
   .form-group.has-feedback&attributes(ngClass(name))
     label(for=name)= label
     if(block)
       block
-    +formValiditorIcon
 mixin formValiditorIcon
   span.glyphicon.form-control-feedback.glyphicon-ok
   span.glyphicon.form-control-feedback.glyphicon-remove
 mixin formValiditorHelp(name, ...messages)
+  +formValiditorIcon
   div.help-block(ng-messages='userForm.#{name}.$error', ng-messages-multiple, ng-show='userForm.#{name}.$dirty')
     each message in messages
       p(ng-message=message.attr)= message.msg
-
 form(name='userForm', novalidate, ng-submit="saveUser(user);resetForm();", autocomplete='off')
   +formGroup('name', '用户名')
-    input.form-control(name='name', type='text', ng-model='user.name' minlength='6', maxlength='18', required)
-    //- p(ng-show='userForm.name.$invalid && userForm.name.$dirty') {{userForm.name.$invalid}} - msg:{{userForm.name.$error}}
+    input.form-control(name='name', type='text', ng-model='user.name', minlength='6', maxlength='18', required)
     +formValiditorHelp('name', {'attr': 'required', 'msg': '请输入用户名'}, {'attr': 'minlength, maxlength', 'msg': '用户名必须是6-18位字符'})
   +formGroup('email', '邮箱')
-    input.form-control(name='email', type='email', ng-model='user.email' maxlength='50', required)
-    +formValiditorHelp('email')
-      p(ng-message='required') 请输入邮箱地址
-      p(ng-message='email') Email格式错误
-   +formGroup('reserveEmail', '后备邮箱')
-    input.form-control(name='reserveEmail', type='email', ng-model='user.reserveEmail' maxlength='50')
-    +formValiditorHelp('reserveEmail')
-      p(ng-message='email') Email格式错误
+    input.form-control(name='email', type='email', ng-model='user.email', maxlength='50', required)
+    +formValiditorHelp('email', {'attr': 'required', 'msg': '请输入邮箱地址'}, {'attr': 'email', 'msg': 'Email格式错误'})
+  +formGroup('reserveEmail', '后备邮箱')
+    input.form-control(name='reserveEmail', type='email', ng-model='user.reserveEmail', maxlength='50')
+    +formValiditorHelp('reserveEmail', {'attr': 'email', 'msg': 'Email格式错误'})
   +formGroup('age', '年龄')
     input.form-control(name='age', type='number', ng-model='user.age', required, max='100', min='18')
-    +formValiditorHelp('age')
-      p(ng-message='required') 请输入年龄
-      p(ng-message='min, max') 年龄必须在18-100之间
+    +formValiditorHelp('age', {'attr': 'required', 'msg': '请输入年龄'}, {'attr': 'min, max', 'msg': '年龄必须在18-100之间'})
   +formGroup('password', '密码')
     input.form-control(name='password', ng-model='user.password', type='password', minlength='6', maxlength='18', required)
-    +formValiditorHelp('password')
-      p(ng-message='required') 请输入密码
-      p(ng-message='minlength, maxlength') 密码必须是6-18位
+    +formValiditorHelp('password', {'attr': 'required', 'msg': '请输入密码'}, {'attr': 'minlength, maxlength', 'msg': '密码必须是6-18位'})
   +formGroup('passwordAgain', '再次输入密码')
     input.form-control(name='passwordAgain', ng-model='user.passwordAgain', type='password', minlength='6', maxlength='18', required, equals-to='password')
-    +formValiditorHelp('passwordAgain')
-      p(ng-message='required') 请再次输入密码
-      p(ng-message='equalsTo') 再次输入密码不一致
-      p(ng-message='minlength, maxlength') 密码必须是6-18位
+    +formValiditorHelp('passwordAgain', {'attr': 'required', 'msg': '请再次输入密码'}, {'attr': 'equalsTo', 'msg': '再次输入密码不一致'}, {'attr': 'minlength, maxlength', 'msg': '密码必须是6-18位'})
   +formGroup('country', '国家代码')
     input.form-control(name='country', type='text', ng-model='user.country', ng-pattern='/^[A-Z]{2,3}$/', minlength='2', maxlength='3', required)
-    +formValiditorHelp('country')
-      p(ng-message='required') 请输入国家代码
-      p(ng-message='pattern') 国家代码必须是2-3位大写字母，例：CN（中国）
+    +formValiditorHelp('country', {'attr': 'required', 'msg': '请输入国家代码'}, {'attr': 'pattern', 'msg': '国家代码必须是2-3位大写字母，例：CN（中国）'})
   +formGroup('account', '邮箱或者手机号')
     input.form-control(name='account', type='text', ng-model='user.account', email-or-mobile, required)
-    +formValiditorHelp('account')
-      p(ng-message='required') 请输入账号
-      p(ng-message='emailOrMobile') 账号必须为Email地址或者手机号
+    +formValiditorHelp('account', {'attr': 'required', 'msg': '请输入账号'}, {'attr': 'emailOrMobile', 'msg': '账号必须为Email地址或者手机号'})
   .form-group
     button.btn.btn-default(type='submit', ng-disabled='userForm.$invalid') 提交
     |&nbsp;

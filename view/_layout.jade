@@ -1,3 +1,6 @@
+mixin setNgApp(app)
+  script.
+    document.getElementsByTagName('html')[0].setAttribute('ng-app', '#{app}');
 doctype html
 html(lang='zh-CN')
   head

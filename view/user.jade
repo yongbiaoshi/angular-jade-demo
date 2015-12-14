@@ -1,4 +1,6 @@
 extends _layout
+prepend scripts
+  +setNgApp('User')
 append scripts
   script(type='text/javascript', src='/javascript/tools/form-validate-ext.js')
   script(type='text/javascript', src='/javascript/ctrls/user-ctrl.js')
@@ -6,7 +8,7 @@ append scripts
 append style
 
 block content
-  .container(ng-app='User')
+  .container
     div(ng-controller='UserController as userCtrl')
       - var list = [1,2,3,4];
         .row

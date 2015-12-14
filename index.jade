@@ -1,6 +1,8 @@
 extends view/_layout
+prepend scripts
+  +setNgApp('')
 block content
-  .container(ng-app)
+  .container
     ul.list-unstyled
       li: a(ng-href='/view/user') 用户添加页面
       li: a(ng-href='/view/user-view') 用户查看页面
